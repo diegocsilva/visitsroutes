@@ -1,14 +1,16 @@
 import { VISITS_ROUTES_API, VISITS_PATH, PROCESS_PATH } from './visitsroutes.api';
-import { Visit } from './../model/visit.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class VisitService {
 
+  formData: FormData = new FormData();
+
   constructor(private http: HttpClient) {}
 
-  process(visit: Visit){
-    return this.http.post(`${VISITS_ROUTES_API}${VISITS_PATH}${PROCESS_PATH}`, visit);
+  process(file: File) {
+    this.formData.append('employees', file);
+    return this.http.post(`${VISITS_ROUTES_API}${VISITS_PATH}${PROCESS_PATH}`, this.formData);
   }
 }

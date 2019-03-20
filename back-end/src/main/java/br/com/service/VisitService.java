@@ -1,13 +1,10 @@
 package br.com.service;
 
-import br.com.dto.VisitDTO;
-import org.apache.commons.io.FileUtils;
+import org.jboss.resteasy.plugins.providers.multipart.MultipartInput;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import java.io.File;
-import java.io.IOException;
-import java.util.Base64;
+import java.util.List;
 
 @RequestScoped
 public class VisitService {
@@ -15,16 +12,11 @@ public class VisitService {
     @Inject
     private CoordinateService coordinateService;
 
-    public Object processFiles(VisitDTO visitDTO){
-        try {
-            String employeesFile = visitDTO.getFileEmployees();
-            byte[] bytes = Base64.getDecoder().decode(employeesFile);
-            FileUtils.writeByteArrayToFile(new File("/home/diego/pathname.csv"), bytes);
+    @Inject
+    private FileUploadService fileUploadService;
 
-            return bytes;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Object processFiles(MultipartInput file) {
+        List<String> result = fileUploadService.createFile(file);
+        return result;
     }
 }
