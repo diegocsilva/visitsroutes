@@ -1,6 +1,7 @@
 import { VISITS_ROUTES_API, VISITS_PATH, PROCESS_PATH } from './visitsroutes.api';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Visit } from '../model/visit.model';
 
 @Injectable()
 export class VisitService {
@@ -9,8 +10,9 @@ export class VisitService {
 
   constructor(private http: HttpClient) {}
 
-  process(file: File) {
-    this.formData.append('employees', file);
+  process(visit: Visit) {
+    this.formData.append('employees', visit.fileEmployees);
+    this.formData.append('stores', visit.fileStores);
     return this.http.post(`${VISITS_ROUTES_API}${VISITS_PATH}${PROCESS_PATH}`, this.formData);
   }
 }

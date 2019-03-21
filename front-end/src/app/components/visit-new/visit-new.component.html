@@ -1,4 +1,4 @@
-<form role="form" (submit)="process()">
+<form #myForm="ngForm" id="myForm" ngControl="myForm" (submit)="process();">
   <notifier-container></notifier-container>
   <div class="col-md-12">
     <div class="card">
@@ -30,9 +30,9 @@
         </div>
         <div class="card-action">
           <button type="submit" class="btn btn-success">
-            Submit <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
+            Submit <i class="fa fa-spinner fa-spin fa-fw"></i>
           </button>
-          <button class="btn btn-danger">Cancel</button>
+          <button class="btn btn-danger"  onclick="location.reload();">Cancel</button>
         </div>
       </div>
     </div>

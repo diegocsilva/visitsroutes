@@ -1,5 +1,9 @@
 package br.com.service;
 
+import br.com.dto.VisitDTO;
+import br.com.model.Employee;
+import br.com.model.Store;
+import br.com.model.csv.RowCSV;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartInput;
 
 import javax.enterprise.context.RequestScoped;
@@ -13,10 +17,23 @@ public class VisitService {
     private CoordinateService coordinateService;
 
     @Inject
-    private FileUploadService fileUploadService;
+    private FileService fileService;
 
-    public Object processFiles(MultipartInput file) {
-        List<String> result = fileUploadService.createFile(file);
-        return result;
+    @Inject
+    private FileCsvService fileCsvService;
+
+    @Inject
+    private EmployeeService employeeService;
+
+    @Inject
+    private StoreService storeService;
+
+    public VisitDTO processFiles(MultipartInput file) {
+        VisitDTO visitDTO = fileService.createFile(file);
+        List<RowCSV> csvEmployees = fileCsvService.buildListRowsByFile(visitDTO.getFileEmployees());
+        List<RowCSV> csvStores = fileCsvService.buildListRowsByFile(visitDTO.getFileStores());
+        List<Employee> employees = employeeService.createEmployeesByListRowCsv(csvEmployees);
+        List<Store> stores = storeService.createStoresByListRowCsv(csvStores);
+        return visitDTO;
     }
 }

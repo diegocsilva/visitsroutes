@@ -1,5 +1,6 @@
 package br.com.model;
 
+import br.com.model.csv.RowCSV;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,14 @@ public class Store extends PanacheEntityBase {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE} )
     private Coordinate coordinate;
+
+    public Store() {
+    }
+
+    public Store(RowCSV rowCSV) {
+        this.name = name;
+        this.coordinate = new Coordinate(rowCSV.getLatitude(), rowCSV.getLongitude());
+    }
 
     public Integer getId() {
         return id;

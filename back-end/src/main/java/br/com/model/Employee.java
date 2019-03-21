@@ -1,5 +1,6 @@
 package br.com.model;
 
+import br.com.model.csv.RowCSV;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -16,6 +17,19 @@ public class Employee extends PanacheEntityBase {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE} )
     private Coordinate coordinate;
+
+    public Employee() {
+    }
+
+    public Employee(String name, Coordinate coordinate) {
+        this.name = name;
+        this.coordinate = coordinate;
+    }
+
+    public Employee(RowCSV e) {
+        this.name = e.getName();
+        this.coordinate = new Coordinate(e.getLatitude(), e.getLongitude());
+    }
 
     public Integer getId() {
         return id;
