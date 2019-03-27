@@ -1,6 +1,6 @@
 package br.com.service;
 
-import br.com.dto.VisitDTO;
+import br.com.dto.FilesVisitsDTO;
 import br.com.model.Employee;
 import br.com.model.Store;
 import br.com.model.csv.RowCSV;
@@ -28,15 +28,15 @@ public class VisitService {
     @Inject
     private StoreService storeService;
 
-    public VisitDTO processFiles(MultipartInput file) {
-        VisitDTO visitDTO = fileService.createFile(file);
-        List<RowCSV> csvEmployees = fileCsvService.buildListRowsByFile(visitDTO.getFileEmployees());
-        List<RowCSV> csvStores = fileCsvService.buildListRowsByFile(visitDTO.getFileStores());
+    public FilesVisitsDTO processFiles(MultipartInput file) {
+        FilesVisitsDTO filesVisitsDTO = fileService.createFile(file);
+        List<RowCSV> csvEmployees = fileCsvService.buildListRowsByFile(filesVisitsDTO.getFileEmployees());
+        List<RowCSV> csvStores = fileCsvService.buildListRowsByFile(filesVisitsDTO.getFileStores());
         List<Employee> employees = employeeService.createEmployeesByListRowCsv(csvEmployees);
         List<Store> stores = storeService.createStoresByListRowCsv(csvStores);
         employeeService.saveAll(employees);
         storeService.saveAll(stores);
 
-        return visitDTO;
+        return filesVisitsDTO;
     }
 }

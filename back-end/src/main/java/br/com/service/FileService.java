@@ -1,6 +1,6 @@
 package br.com.service;
 
-import br.com.dto.VisitDTO;
+import br.com.dto.FilesVisitsDTO;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartInput;
@@ -25,9 +25,9 @@ public class FileService {
     private static final String STORES = "stores";
     private static final String HOME_DIR = System.getProperty("user.home");
 
-    public VisitDTO createFile(MultipartInput input) {
-        AtomicReference<VisitDTO> visitDTO = new AtomicReference<>();
-        visitDTO.set(new VisitDTO());
+    public FilesVisitsDTO createFile(MultipartInput input) {
+        AtomicReference<FilesVisitsDTO> visitDTO = new AtomicReference<>();
+        visitDTO.set(new FilesVisitsDTO());
 
         input.getParts().forEach(inputPart -> {
             try {
@@ -48,7 +48,7 @@ public class FileService {
         return visitDTO.get();
     }
 
-    private void putFileNameResult(AtomicReference<VisitDTO> visitDTO, String idName, String fileName) {
+    private void putFileNameResult(AtomicReference<FilesVisitsDTO> visitDTO, String idName, String fileName) {
         if (EMPLOYEES.equalsIgnoreCase(idName)){
             visitDTO.get().setFileEmployees(fileName);
         }

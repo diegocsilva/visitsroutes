@@ -1,6 +1,6 @@
 package br.com.dto;
 
-public class VisitDTO {
+public class FilesVisitsDTO {
     private String fileEmployees;
     private String fileStores;
 

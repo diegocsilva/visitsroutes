@@ -5,6 +5,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.GenerationType.AUTO;
 
 @Entity
@@ -18,6 +21,10 @@ public class Store extends PanacheEntityBase {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE} )
     private Coordinate coordinate;
+
+    @OneToOne
+    @JoinColumn(name="visit_id")
+    private Visit visits;
 
     public Store() {
     }
