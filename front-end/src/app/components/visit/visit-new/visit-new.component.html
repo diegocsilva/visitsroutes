@@ -1,0 +1,34 @@
+<notifier-container></notifier-container>
+<form [formGroup]="myForm">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">New route of visits</div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label for="fileEmployees">File with employees</label>
+          <input type="file" id="fileEmployees"
+            formControlName="fileEmployees"
+            required class="form-control-file"
+            (change)="onFileEmployeesChange($event)"
+            #fileInput />
+        </div>
+        <div class="form-group">
+          <label for="fileStores">File with stores</label>
+          <input type="file" id="fileStores"
+            formControlName="fileStores"
+            required class="form-control-file"
+            (change)="onFileStoresChange($event)"
+            #fileInput />
+        </div>
+        <div class="card-action">
+          <button type="submit" class="btn btn-success" (click)="process()">
+            Submit <i class="fa fa-spinner fa-spin fa-fw"></i>
+          </button>
+          <button class="btn btn-danger"  onclick="location.reload();">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
