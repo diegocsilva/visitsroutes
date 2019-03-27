@@ -1,11 +1,10 @@
-import { Files } from './../../model/files.model';
 import { NotifierService } from 'angular-notifier';
 import { NotifyComponent } from './../common/notify/notify.component';
 import { VisitService } from './../../services/visit.service';
 import { Visit } from './../../model/visit.model';
-import { NgForm, FormGroup } from '@angular/forms';
+import { NgForm, FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -14,45 +13,45 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./visit-new.component.css']
 })
 export class VisitNewComponent extends NotifyComponent implements OnInit {
-  @ViewChild(NgForm) form: NgForm;
-  @ViewChild('myForm') myForm: NgForm;
-
+  myForm: FormGroup;
   visit: Visit;
-  viewMessage: boolean;
 
   constructor(
     private notifierService: NotifierService,
     private visitService: VisitService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
+
   ) {
     super(notifierService);
   }
 
   ngOnInit() {
     this.visit = new Visit(null, null, null);
+    this.initForm();
+  }
+
+  initForm(): void {
+    this.myForm = new FormGroup({
+      fileEmployees: new FormControl(),
+      fileStores: new FormControl()
+    });
   }
 
   process() {
-    let success = true;
     if (this.validForm()) {
       this.visitService.process(this.visit).subscribe(
-        (response: Files) => {
+        (response: any) => {
           this.visit = new Visit(null, null, null);
-          this.form.reset();
-          this.form.resetForm();
-          this.showNotification('success', 'Files Processed sucess');
-          success = true;
+          this.myForm.reset();
+          this.router.navigate(['candin']);
+          this.showNotification('success', 'CHUPA ESSA MANGA!!!! ' + response.message);
         },
         err => {
           const httpError: HttpErrorResponse = err;
           this.showNotification('error', httpError.error['error']);
-          success = false;
         }
       );
-    }
-    if (success) {
-      this.myForm.reset();
-      this.myForm.resetForm();
     }
   }
 
@@ -79,5 +78,12 @@ export class VisitNewComponent extends NotifyComponent implements OnInit {
     const files: FileList = event.target.files;
     const file: File = files[0];
     this.visit.fileStores = file;
+  }
+
+  resetForm(): void {
+    this.myForm.patchValue({
+      fileEmployees: null,
+      fileStores: null
+    })
   }
 }

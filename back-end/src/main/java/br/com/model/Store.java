@@ -3,15 +3,15 @@ package br.com.model;
 import br.com.model.csv.RowCSV;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+
+import static javax.persistence.GenerationType.AUTO;
 
 @Entity
 public class Store extends PanacheEntityBase {
 
     @Id
+    @GeneratedValue(strategy = AUTO)
     private Integer id;
 
     private String name;
@@ -23,7 +23,7 @@ public class Store extends PanacheEntityBase {
     }
 
     public Store(RowCSV rowCSV) {
-        this.name = name;
+        this.name = rowCSV.getName();
         this.coordinate = new Coordinate(rowCSV.getLatitude(), rowCSV.getLongitude());
     }
 

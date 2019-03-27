@@ -23,6 +23,7 @@ public class FileService {
     private static final String NAME = "name";
     private static final String EMPLOYEES = "employees";
     private static final String STORES = "stores";
+    private static final String HOME_DIR = System.getProperty("user.home");
 
     public VisitDTO createFile(MultipartInput input) {
         AtomicReference<VisitDTO> visitDTO = new AtomicReference<>();
@@ -35,7 +36,7 @@ public class FileService {
                 String idName = this.getFileByValue(header, NAME);
                 if (!UNKNOWN.equals(fileName)){
                     InputStream inputStream = getInputStreamBody(inputPart);
-                    fileName = "/home/diego/" + fileName;
+                    fileName =  HOME_DIR +"/"+ fileName;
                     byte[] bytes = IOUtils.toByteArray(inputStream);
                     writeFile(bytes, fileName);
                     putFileNameResult(visitDTO, idName, fileName);

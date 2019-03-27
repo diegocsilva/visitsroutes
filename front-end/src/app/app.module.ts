@@ -13,7 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { routes } from './app.routes';
 import { VisitNewComponent } from './components/visit-new/visit-new.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeService } from './services/employee.service';
 import { NotifyComponent } from './components/common/notify/notify.component';
@@ -32,6 +32,7 @@ import { NotifyComponent } from './components/common/notify/notify.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NotifierModule.withConfig(customNotifierOptions),
     routes

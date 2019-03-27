@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+    app:
+      image: build_native
+      build: .
+      container_name: build_native
+      working_dir: /opt/visitsroutes/
+      volumes:
+        - ../:/opt/visitsroutes
+        - $HOME/.m2:/root/
+      command: >
+          bash -c "cd back-end 
+          && mvn package -Pnative -X
+          && cd ../front-end
+          && ng build --prod"

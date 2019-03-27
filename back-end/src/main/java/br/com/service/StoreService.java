@@ -17,25 +17,25 @@ public class StoreService {
     private StoreRepository repository;
 
     @Transactional
-    public void save(Store store){
+    public void save(Store store) {
         repository.persist(store);
     }
 
-    public Store findByName(String name){
+    public Store findByName(String name) {
         return repository.findByName(name);
     }
 
-    public List<Store> findAll(){
+    public List<Store> findAll() {
         return repository.listAll();
     }
 
     public List<Store> createStoresByListRowCsv(List<RowCSV> csvStores) {
         List<Store> stores = new ArrayList<>();
-        csvStores.forEach(s -> {
-            Store store = new Store(s);
-            save(store);
-            stores.add(store);
-        });
+        csvStores.forEach(s -> stores.add(new Store(s)));
         return stores;
+    }
+
+    public void saveAll(List<Store> stores) {
+        repository.saveAll(stores);
     }
 }

@@ -34,6 +34,9 @@ public class VisitService {
         List<RowCSV> csvStores = fileCsvService.buildListRowsByFile(visitDTO.getFileStores());
         List<Employee> employees = employeeService.createEmployeesByListRowCsv(csvEmployees);
         List<Store> stores = storeService.createStoresByListRowCsv(csvStores);
+        employeeService.saveAll(employees);
+        storeService.saveAll(stores);
+
         return visitDTO;
     }
 }

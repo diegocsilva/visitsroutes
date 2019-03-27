@@ -9,13 +9,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 public class InitResourceTest {
 
-    @Test
-    public void testHelloEndpoint() {
-        given()
-          .when().get("/init")
-          .then()
-             .statusCode(200)
-             .body(is("hello"));
+    public void testRequestEndPoint() {
     }
 
 }
