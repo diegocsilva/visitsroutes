@@ -1,5 +1,6 @@
 package br.com.resource;
 
+import br.com.dto.EmployeeDTO;
 import br.com.model.Coordinate;
 import br.com.model.Employee;
 import br.com.service.EmployeeService;
@@ -22,7 +23,7 @@ public class EmployeeResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/listAll")
-    public List<Employee> listAll() {
+    public List<EmployeeDTO> listAll() {
         return service.findAll();
     }
 

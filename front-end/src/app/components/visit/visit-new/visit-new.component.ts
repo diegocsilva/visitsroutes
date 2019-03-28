@@ -1,3 +1,4 @@
+import { Files } from './../../../model/files.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class VisitNewComponent implements OnInit {
   myForm: FormGroup;
-  visit: Visit;
+  visitFiles: Files;
 
   constructor(
     private toastr: ToastrService,
@@ -23,7 +24,7 @@ export class VisitNewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.visit = new Visit(null, null, null);
+    this.visitFiles = new Files(null, null);
     this.initForm();
   }
 
@@ -36,9 +37,9 @@ export class VisitNewComponent implements OnInit {
 
   process() {
     if (this.validForm()) {
-      this.visitService.process(this.visit).subscribe(
+      this.visitService.process(this.visitFiles).subscribe(
         (response: any) => {
-          this.visit = new Visit(null, null, null);
+          this.visitFiles = new Files(null, null);
           this.myForm.reset();
           this.router.navigate(['employee']);
           this.toastr.success('Files Processed sucess');
@@ -53,11 +54,11 @@ export class VisitNewComponent implements OnInit {
 
   validForm(): boolean {
     let valid = true;
-    if (this.visit.fileEmployees === null) {
+    if (this.visitFiles.fileEmployees === null) {
       valid = false;
       this.toastr.error('File with employees is required!');
     }
-    if (this.visit.fileStores === null) {
+    if (this.visitFiles.fileStores === null) {
       valid = false;
       this.toastr.error('File with stores is required!');
     }
@@ -67,19 +68,23 @@ export class VisitNewComponent implements OnInit {
   onFileEmployeesChange(event: any): void {
     const files: FileList = event.target.files;
     const file: File = files[0];
-    this.visit.fileEmployees = file;
+    this.visitFiles.fileEmployees = file;
   }
 
   onFileStoresChange(event: any): void {
     const files: FileList = event.target.files;
     const file: File = files[0];
-    this.visit.fileStores = file;
+    this.visitFiles.fileStores = file;
   }
 
   resetForm(): void {
     this.myForm.patchValue({
       fileEmployees: null,
       fileStores: null
-    })
+    });
+  }
+  cancel() {
+    this.resetForm();
+    this.toastr.info('Clean file entry fields!');
   }
 }

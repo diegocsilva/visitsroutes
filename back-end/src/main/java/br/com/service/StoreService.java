@@ -35,6 +35,7 @@ public class StoreService {
         return stores;
     }
 
+    @Transactional
     public void saveAll(List<Store> stores) {
         repository.saveAll(stores);
     }

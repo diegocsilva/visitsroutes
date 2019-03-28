@@ -1,8 +1,8 @@
 package br.com.service;
 
+import br.com.dto.EmployeeDTO;
 import br.com.model.Employee;
 import br.com.model.csv.RowCSV;
-import br.com.repository.CoordinateRepository;
 import br.com.repository.EmployeeRepository;
 
 import javax.enterprise.context.RequestScoped;
@@ -26,8 +26,11 @@ public class EmployeeService {
         return repository.findByName(name);
     }
 
-    public List<Employee> findAll() {
-        return repository.listAll();
+    public List<EmployeeDTO> findAll() {
+        List<Employee> employees = repository.listAll();
+        List<EmployeeDTO> employeeDTO = new ArrayList<>();
+        employees.forEach(e -> employeeDTO.add(new EmployeeDTO(e)));
+        return employeeDTO;
     }
 
     public List<Employee> createEmployeesByListRowCsv(List<RowCSV> csvEmployees) {
@@ -36,6 +39,7 @@ public class EmployeeService {
         return employees;
     }
 
+    @Transactional
     public void saveAll(List<Employee> employees) {
         repository.saveAll(employees);
     }

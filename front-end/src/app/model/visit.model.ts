@@ -1,7 +1,8 @@
+import { Store } from './store.model';
 export class Visit{
     constructor(
         public id: number,
-        public fileEmployees: File,
-        public fileStores: File
+        public distance: number,
+        public store: Store
     ){}
 }

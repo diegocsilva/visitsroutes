@@ -3,6 +3,7 @@ package br.com.service;
 import br.com.dto.FilesVisitsDTO;
 import br.com.model.Employee;
 import br.com.model.Store;
+import br.com.model.Visit;
 import br.com.model.csv.RowCSV;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartInput;
 
@@ -36,7 +37,19 @@ public class VisitService {
         List<Store> stores = storeService.createStoresByListRowCsv(csvStores);
         employeeService.saveAll(employees);
         storeService.saveAll(stores);
+        createRoutes(employees, stores);
 
         return filesVisitsDTO;
+    }
+
+    private void createRoutes(List<Employee> employees, List<Store> stores) {
+
+        stores.forEach(store -> {
+            Employee employee = analyzeBetterRoute(employees, store);
+        });
+    }
+
+    private Employee analyzeBetterRoute(List<Employee> employees, Store store) {
+        return null;
     }
 }

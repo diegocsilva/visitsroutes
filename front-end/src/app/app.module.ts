@@ -9,9 +9,10 @@ import { SidebarComponent } from './components/shared/sidebar/sidebar.component'
 import { HeaderComponent } from './components/shared/header/header.component';
 import { customNotifierOptions } from './app.notify';
 import { NotifierModule } from 'angular-notifier';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -19,8 +20,8 @@ import { routes } from './app.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NotifyComponent } from './components/common/notify/notify.component';
-import { TableComponent } from './components/common/table/table.component';
-import { MatToolbarModule,MatTableModule, } from '@angular/material';
+import { MatToolbarModule, MatTableModule, MatNativeDateModule, } from '@angular/material';
+import { TableExpansionComponent } from './components/common/table/table-expansion/table-expansion.component';
 
 @NgModule({
   declarations: [
@@ -33,19 +34,19 @@ import { MatToolbarModule,MatTableModule, } from '@angular/material';
     HomeComponent,
     VisitNewComponent,
     EmployeeListComponent,
-    TableComponent
+    TableExpansionComponent,
   ],
   imports: [
-    BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
     NotifierModule.withConfig(customNotifierOptions),
+    routes,
+    ToastrModule.forRoot(),
     MatToolbarModule,
-    MatTableModule,
-    routes
-  ],
+    MatNativeDateModule,
+    MatTableModule  ],
   providers: [
     VisitService,
     EmployeeService,

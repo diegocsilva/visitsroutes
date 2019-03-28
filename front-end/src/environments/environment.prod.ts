@@ -1,15 +1,15 @@
 const api = 'http://localhost:8080';
-const findAll = 'findAll';
-const save = 'save';
-const process = 'process';
+const findAll = '/listAll';
+const save = '/save';
+const process = '/process';
 
 export const environment = {
-  production: true,
+  production: false,
   visit: {
-    process: api + 'visit' + process
+    process: api + '/visit' + process
   },
   employee: {
-    listAll: api + 'employee' + findAll,
-    save: api + 'employee' + save
+    listAll: api + '/employee' + findAll,
+    save: api + '/employee' + save
   }
 };

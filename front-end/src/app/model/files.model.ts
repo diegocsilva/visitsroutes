@@ -1,6 +1,6 @@
-export class Files{
+export class Files {
   constructor(
-      public fileEmployees: string,
-      public fileStores: string
+      public fileEmployees: File,
+      public fileStores: File
   ){}
 }
