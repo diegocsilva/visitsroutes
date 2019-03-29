@@ -18,12 +18,16 @@
                   <tr>
                     <th>  Distance  </th>
                     <th>  Store Name   </th>
+                    <th>  Latitude   </th>
+                    <th>  Longitude   </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let visit of element.visitsList;">
-                    <td> {{visit.distance}} Km </td>
+                    <td> <span id='number-default'>{{visit.distance | number}}</span> Km </td>
                     <td> {{visit.store.name}} </td>
+                    <td> {{visit.store.latitude}} </td>
+                    <td> {{visit.store.longitude}} </td>
                   </tr>
                 </tbody>
             </table>

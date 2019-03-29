@@ -1,5 +1,6 @@
 package br.com.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -23,6 +24,12 @@ public class Visit extends PanacheEntityBase {
     @JoinColumn(name="store_id", referencedColumnName="id",nullable=false)
     private Store store;
 
+    @Transient
+    private Integer employee_id;
+
+    @Transient
+    private Integer store_id;
+
     public Visit() {
     }
 
@@ -30,6 +37,12 @@ public class Visit extends PanacheEntityBase {
         this.distance = distance;
         this.employee = employee;
         this.store = store;
+    }
+
+    public Visit(Double distance, Integer employee, Integer store) {
+        this.distance = distance;
+        this.employee_id = employee;
+        this.store_id = store;
     }
 
     public Integer getId() {
@@ -62,6 +75,22 @@ public class Visit extends PanacheEntityBase {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public Integer getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(Integer employee_id) {
+        this.employee_id = employee_id;
+    }
+
+    public Integer getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(Integer store_id) {
+        this.store_id = store_id;
     }
 
     public Visit clone(){

@@ -1,7 +1,6 @@
 package br.com.dto;
 
 import br.com.model.Employee;
-import br.com.model.Store;
 import br.com.model.Visit;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class EmployeeDTO {
     private Double latitude;
     private Double longitude;
     private Integer visits;
-    private List<Visit> visitsList;
+    private List<VisitDTO> visitsList;
 
     public EmployeeDTO() {}
 
@@ -22,8 +21,14 @@ public class EmployeeDTO {
         this.name = employee.getName();
         this.latitude = employee.getCoordinate().getLatitude();
         this.longitude = employee.getCoordinate().getLongitude();
-        this.visitsList = employee.getVisits();
+        this.visitsList = buildVisitsDTO(employee.getVisits());
         this.visits = employee.getVisits().size();
+    }
+
+    private List<VisitDTO> buildVisitsDTO(List<Visit> visits) {
+        List<VisitDTO> visitsDTO = new ArrayList<>();
+        visits.forEach(v->visitsDTO.add(new VisitDTO(v)));
+        return visitsDTO;
     }
 
     public String getName() {
@@ -58,11 +63,11 @@ public class EmployeeDTO {
         this.visits = visits;
     }
 
-    public List<Visit> getVisitsList() {
+    public List<VisitDTO> getVisitsList() {
         return visitsList;
     }
 
-    public void setVisitsList(List<Visit> visitsList) {
+    public void setVisitsList(List<VisitDTO> visitsList) {
         this.visitsList = visitsList;
     }
 

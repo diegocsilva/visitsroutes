@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @RequestScoped
@@ -53,23 +54,35 @@ public class VisitService {
             List<Visit> visits = sortVisitsByDistances(employees, store);
             int lessVisits = searchFewerVisits(employees);
             int moreVisits = searchMoreVisits(employees);
-            int mean = moreVisits != 0 ? moreVisits/lessVisits : 0;
+            int mean = moreVisits != 0 ? moreVisits+lessVisits/2 : 0;
 
             for (Visit visit : visits) {
-                if (visit.getEmployee().getVisits().size() <= mean){
+                if (countVisitsByEmployeeId(employees, visit.getEmployee_id()) <= mean){
                     Visit clone = visit.clone();
-                    Employee employee =
-                            employees.stream()
-                                    .filter(e -> e.getId().equals(visit.getEmployee().getId()))
+                    clone.setEmployee(filterEmployeeById(employees, visit.getEmployee_id()));
+                    clone.setStore(store);
+                    Employee employee = employees.stream()
+                                    .filter(e -> e.getId().equals(visit.getEmployee_id()))
                                     .findAny()
                                     .orElse(null);
                     repository.merge(clone);
-                    employee.getVisits().add(clone);
+                    Objects.requireNonNull(employee).getVisits().add(clone);
                     break;
                 }
             }
             visits.clear();
         });
+    }
+
+    private Integer countVisitsByEmployeeId(List<Employee> employees, Integer employee_id) {
+        return filterEmployeeById(employees, employee_id).getVisits().size();
+    }
+
+    private Employee filterEmployeeById(List<Employee> employees, Integer employee_id) {
+        return Objects.requireNonNull(employees.stream()
+                .filter(e -> e.getId().equals(employee_id))
+                .findAny()
+                .orElse(null));
     }
 
     private int searchFewerVisits(List<Employee> employees) {
@@ -109,6 +122,6 @@ public class VisitService {
 
     private Visit buildVisit(Store store, Employee employee){
         Double distance = coordinateService.distanceCoordinate(store.getCoordinate(), employee.getCoordinate());
-        return new Visit(distance, employee, store);
+        return new Visit(distance, employee.getId(), store.getId());
     }
 }

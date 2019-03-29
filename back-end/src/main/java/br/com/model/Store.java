@@ -1,6 +1,7 @@
 package br.com.model;
 
 import br.com.model.csv.RowCSV;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class Store extends PanacheEntityBase {
     @ManyToOne(cascade=CascadeType.ALL)
     private Coordinate coordinate;
 
+    @JsonIgnore
     @OneToMany(mappedBy="store")
     private List<Visit> visits;
 
