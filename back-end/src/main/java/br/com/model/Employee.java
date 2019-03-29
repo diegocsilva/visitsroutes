@@ -18,10 +18,10 @@ public class Employee extends PanacheEntityBase {
     private Integer id;
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE} )
+    @ManyToOne(cascade=CascadeType.ALL)
     private Coordinate coordinate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="employee")
     private List<Visit> visits = new ArrayList<>();
 
     public Employee() {

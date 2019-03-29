@@ -15,13 +15,22 @@ public class Visit extends PanacheEntityBase {
 
     private Double distance;
 
-    @OneToOne
-    @JoinColumn(name = "employee_id")
+    @ManyToOne
+    @JoinColumn(name="employee_id", referencedColumnName="id",nullable=false)
     private Employee employee;
 
-    @OneToOne
-    @JoinColumn(name = "store_id")
+    @ManyToOne
+    @JoinColumn(name="store_id", referencedColumnName="id",nullable=false)
     private Store store;
+
+    public Visit() {
+    }
+
+    public Visit(Double distance, Employee employee, Store store) {
+        this.distance = distance;
+        this.employee = employee;
+        this.store = store;
+    }
 
     public Integer getId() {
         return id;
@@ -53,5 +62,13 @@ public class Visit extends PanacheEntityBase {
 
     public void setStore(Store store) {
         this.store = store;
+    }
+
+    public Visit clone(){
+        Visit clone = new Visit();
+        clone.setDistance(this.distance);
+        clone.setEmployee(this.employee);
+        clone.setStore(this.store);
+        return clone;
     }
 }

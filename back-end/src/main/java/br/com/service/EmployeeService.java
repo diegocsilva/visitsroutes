@@ -5,13 +5,13 @@ import br.com.model.Employee;
 import br.com.model.csv.RowCSV;
 import br.com.repository.EmployeeRepository;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequestScoped
+@ApplicationScoped
 public class EmployeeService {
 
     @Inject
@@ -42,5 +42,10 @@ public class EmployeeService {
     @Transactional
     public void saveAll(List<Employee> employees) {
         repository.saveAll(employees);
+    }
+
+    @Transactional
+    public void updateAll(List<Employee> employees) {
+        repository.updateAll(employees);
     }
 }

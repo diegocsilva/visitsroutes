@@ -23,7 +23,6 @@ public class EmployeeDTO {
         this.latitude = employee.getCoordinate().getLatitude();
         this.longitude = employee.getCoordinate().getLongitude();
         this.visitsList = employee.getVisits();
-        this.visitsList = new ArrayList<>();
         this.visits = employee.getVisits().size();
     }
 
