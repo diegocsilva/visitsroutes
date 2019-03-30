@@ -21,7 +21,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NotifyComponent } from './components/common/notify/notify.component';
 import { MatToolbarModule, MatTableModule, MatNativeDateModule, } from '@angular/material';
-import { TableExpansionComponent } from './components/common/table/table-expansion/table-expansion.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,6 @@ import { TableExpansionComponent } from './components/common/table/table-expansi
     HomeComponent,
     VisitNewComponent,
     EmployeeListComponent,
-    TableExpansionComponent,
   ],
   imports: [
     FormsModule,
