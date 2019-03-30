@@ -12,4 +12,5 @@ services:
           bash -c "cd back-end 
           && mvn package -Pnative -X
           && cd ../front-end
+          && npm install
           && ng build --prod"
