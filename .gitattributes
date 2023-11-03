@@ -1,6 +1,13 @@
+#linguist-language
 *.java linguist-language=Java
 *.properties linguist-language=Java
 *.xml linguist-language=Java
+*.sql linguist-language=Java
 *.js linguist-language=Javascript
 *.ts linguist-language=Typescript
+#linguist-vendored
 front-end/src/assets/* linguist-vendored
+*.scss linguist-vendored
+*.js linguist-vendored=false
+*.css linguist-vendored=false
+*.java linguist-vendored=false
