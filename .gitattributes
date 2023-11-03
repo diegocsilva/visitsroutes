@@ -1,0 +1,6 @@
+*.java linguist-language=Java
+*.properties linguist-language=Java
+*.xml linguist-language=Java
+*.js linguist-language=Javascript
+*.ts linguist-language=Typescript
+front-end/src/assets/* linguist-vendored

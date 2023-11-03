@@ -1,0 +1,6 @@
+*.java linguist-language=Java
+*.properties linguist-language=Java
+*.yaml linguist-language=Java
+*.yml linguist-language=Java
+*.html linguist-language=Java
+*.xml linguist-language=Java
